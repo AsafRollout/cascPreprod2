@@ -1,0 +1,36 @@
+---
+apiVersion: featuremanagement.cloudbees.io/v1alpha1
+kind: flag-configuration
+
+flag: ppp1
+
+enabled: true
+
+stickinessProperty: rox.distinct_id
+
+defaultValue:
+  - percentage: 50
+    option: true
+  - percentage: 50
+    option: false
+
+conditions:
+  - allOf:
+      - flag:
+          name: fToRef
+          value: "true"
+    flagValue: false
+  - allOf:
+      - anyOf:
+          - group:
+              name: tg2
+    flagValue: false
+  - allOf:
+      - property:
+          name: ppp111
+          operator: is-undefined
+    flagValue:
+      - percentage: 0
+        from: 2025-04-07T21:17:00Z
+      - percentage: 100
+        from: 2025-04-10T21:22:00Z
